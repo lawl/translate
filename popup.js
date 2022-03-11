@@ -2,25 +2,27 @@ var chrome = chrome || browser
 
 document.addEventListener('DOMContentLoaded', async function () {
 
-    let resp = await APIQuery('GET', 'languages', null)
-    let trTo = document.getElementById('translateto')
-    let trFrom = document.getElementById('translatefrom')
-    let opt = document.createElement('option');
-    opt.value = "auto"
-    opt.innerText = "Detect automatically"
-    trFrom.appendChild(opt)
-    let browserLang = navigator.language.split("-")[0];
-    for (lang of resp) {
+    try {
+        let resp = await APIQuery('GET', 'languages', null)
+        let trTo = document.getElementById('translateto')
+        let trFrom = document.getElementById('translatefrom')
         let opt = document.createElement('option');
-        opt.value = lang.code
-        opt.innerText = lang.name
+        opt.value = "auto"
+        opt.innerText = "Detect automatically"
         trFrom.appendChild(opt)
-        let opt2 = opt.cloneNode(true)
-        if (lang.code == browserLang) {
-            opt2.selected = true
+        let browserLang = navigator.language.split("-")[0];
+        for (lang of resp) {
+            let opt = document.createElement('option');
+            opt.value = lang.code
+            opt.innerText = lang.name
+            trFrom.appendChild(opt)
+            let opt2 = opt.cloneNode(true)
+            if (lang.code == browserLang) {
+                opt2.selected = true
+            }
+            trTo.appendChild(opt2)
         }
-        trTo.appendChild(opt2)
-    }
+    } catch (e) { /*maybe display some UI? don't know*/ }
 
     setView('main')
 
