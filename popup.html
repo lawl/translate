@@ -1,0 +1,59 @@
+<style type="text/css">
+    html,
+    body {
+        padding-left: 5px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 400px !important;
+        max-height: 300px;
+        overflow: hidden;
+    }
+
+    .navbar {
+        width: 100%;
+        padding-bottom: 5px;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+</style>
+
+<link rel="stylesheet" href="vendor/picocss/pico.min.css">
+</link>
+
+<div class="view view_main">
+    <div class="navbar" style="text-align:right;">
+        <span class="clickable" id="settingsbtn">
+            <img src="vendor/feathericons/settings.svg" alt="settings" />
+        </span>
+    </div>
+    <div class="input-line">
+        <label for="translatefrom">
+            Translate from
+        </label>
+        <select id="translatefrom"></select>
+    </div>
+    <div class="input-line">
+        <label for="translateto">
+            Translate to
+        </label>
+        <select id="translateto"></select>
+    </div>
+    <button id="doTranslate">Translate page</button>
+</div>
+
+<div class="view view_settings">
+    <div class="navbar" style="text-align:left; ">
+        <span class="clickable btnToMainView">
+            <img src="vendor/feathericons/arrow-left.svg" alt="back" />
+        </span>
+    </div>
+    <label>API endpoint <input type="text" class="setting" data-storename="api-endpoint" /></label>
+    <div style="text-align: right; margin-top:10px;">
+        <button id="saveSettings">Save</button>
+    </div>
+</div>
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript" src="popup.js"></script>
