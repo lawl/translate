@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     setView('main')
 
     document.getElementById('doTranslate').addEventListener('click', async function () {
+        /*
         await chrome.tabs.executeScript({
             code: 'var __args=' + JSON.stringify(
                 {
@@ -35,6 +36,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                 })
         });
         await chrome.tabs.executeScript({ file: "translate.js" });
+        */
+        /*
+         */
+        console.log("sending msg")
+        let resp = await chrome.runtime.sendMessage({
+            action: "inject",
+            sl: document.getElementById('translatefrom').value,
+            tl: document.getElementById('translateto').value
+        });
+        console.log("rcv'd ", resp);
     })
 
     document.getElementById('settingsbtn').addEventListener('click', function () {
@@ -77,4 +88,44 @@ function setView() {
         var el = document.querySelector('.view_' + view);
         el.style.display = 'block';
     }
+}
+
+
+
+/* FIXME 2 functions below are duplicated, because FUCK manifest v3 and FUCK google */
+function APIQuery(method, route, body) {
+
+    return new Promise(function (resolve, reject) {
+        getSettings(function (data) {
+            fetch(data.settings['api-endpoint'] + route, {
+                method: method,
+                body: body,
+                headers: { "Content-Type": "application/json" }
+            }).then(function (res) {
+                res.json().then(function (jsn) {
+                    resolve(jsn)
+                }).catch(function (err) {
+                    reject(err)
+                })
+            }).catch(function (err) {
+                reject(err)
+            });
+        })
+    })
+
+
+}
+
+
+function getSettings(cb) {
+    chrome.storage.sync.get('settings', function (data) {
+        if (!data.settings) {
+            let defaultsettings = {
+                'api-endpoint': 'https://example.org/'
+            }
+            cb({ settings: defaultsettings })
+            return
+        }
+        cb(data)
+    })
 }

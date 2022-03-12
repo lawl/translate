@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "LibreTranslate",
     "version": "1.0",
     "description": "translate stuff via a libretranslate service",
@@ -7,12 +7,9 @@
         "48": "icons/icon-48.png"
     },
     "background": {
-        "scripts": [
-            "common.js",
-            "background.js"
-        ]
+        "service_worker": "background.js"
     },
-    "browser_action": {
+    "action": {
         "default_icon": {
             "48": "icons/icon-48.png"
         },
@@ -21,6 +18,7 @@
     },
     "permissions": [
         "activeTab",
-        "storage"
+        "storage",
+        "scripting"
     ]
 }
