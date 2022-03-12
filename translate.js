@@ -286,7 +286,10 @@
         return (
             bounding.top >= 0 &&
             bounding.left >= 0 &&
-            bounding.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            /* multiply viewport height by 1.5 so when scrolling down, the just-in-time translation isn't as noticable.
+            as we will have half a viewport already translated. this is kinda bad if there a large image you scroll past fast.
+            but it's better than nothing, for now. */
+            bounding.top <= (window.innerHeight || document.documentElement.clientHeight) * 1.5 &&
             bounding.left <= (window.innerWidth || document.documentElement.clientWidth)
         );
     }
