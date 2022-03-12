@@ -92,7 +92,7 @@ async function doTranslate(sl, tl) {
 
 
 
-    let resp = translate(document.title, 'text')
+    let resp = await translate(document.title, 'text', sl, tl)
     document.title = resp.text
 
 
