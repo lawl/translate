@@ -34,7 +34,7 @@
     }
 
     async function detectLanguage(nodes) {
-        langfreqmap = {};
+        let langfreqmap = {};
         for (node of nodes) {
             let resp = await sendMessage({ action: "detect-lang", text: node.innerText });
             if (resp.languages.length >= 1) {
