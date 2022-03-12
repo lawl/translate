@@ -159,7 +159,6 @@
             let nodeList = document.getElementsByTagName(tagName);
             let nodes = Array.prototype.slice.call(nodeList);
             nodes = filterTranslatable(nodes)
-            nodes = filterChilds(nodes)
             nodes = filterHidden(nodes)
             nodes = filterInViewport(nodes)
             nodes = filterTranslated(nodes)
@@ -171,6 +170,8 @@
 
             allNodes = allNodes.concat(nodes)
         }
+
+        allNodes = filterChilds(allNodes)
 
         allNodes.sort(function (a, b) {
             let ab = a.getBoundingClientRect();
@@ -255,8 +256,8 @@
             while (node.parentNode) {
                 node = node.parentNode
 
-                if (nodes.includes(node)) {
-                    //we're a child of another node in the list
+                //we're a child of another node in the list
+                if (includesNode(nodes, node)) {
                     found = true
                     break;
                 }
@@ -267,6 +268,16 @@
         }
         return topLevelNodes
     }
+
+    function includesNode(haystack, needle) {
+        for (n of haystack) {
+            if (needle.isSameNode(n)) {
+                return true
+            }
+        }
+        return false
+    }
+
     function hasTranslateableText(node) {
         if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() != "") {
             return true
