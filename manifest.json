@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "LibreTranslate",
+    "name": "Transl8 m8",
     "version": "1.0",
     "description": "translate stuff via a libretranslate service",
     "icons": {
@@ -14,7 +14,7 @@
             "48": "icons/icon-48.png"
         },
         "default_popup": "popup.html",
-        "default_title": "LibreTranslate"
+        "default_title": "transl8 m8"
     },
     "permissions": [
         "activeTab",
